@@ -1,9 +1,9 @@
 # Longest Substring Without Repeating Characters
+# written by Mike Mattie (c) 2021
 
 def printer(func):
     def wrapper(*args, **kwargs):
         print("args: " + ",".join(map(repr, args)))
-#        print("kwargs: " + ",".join(map(repr, kwargs)))
 
         result = func(*args, **kwargs)
 
@@ -34,13 +34,8 @@ class Solution(object):
         self.nearest = len(self.string)
         self.end = self.nearest
 
-    def update_nearest(self, position):
-        self.nearest = min(self.nearest, position)
-
-        return self.nearest
-
 #    @printer
-    def find_collision(self, char, index):
+    def update_nearest(self, char, index):
         positions = iter(self.table[char])
 
         next_index = None
@@ -61,7 +56,9 @@ class Solution(object):
         except StopIteration as ex:
             return None
 
-        return self.update_nearest(next_index)
+        self.nearest = min(self.nearest, next_index)
+
+        return self.nearest
 
 #    @printer
     def find_substring(self):
@@ -72,23 +69,21 @@ class Solution(object):
         remaining = self.end - index
 
         if remaining < self.longest:
-            return False, self.longest
+            return self.longest
 
         if remaining < 1:
-            return False, self.longest
+            return self.longest
 
         while index < self.nearest:
             char = self.string[index]
-            collision = self.find_collision(char, index)
-
-#            print("collide: " + repr(collision))
+            self.update_nearest(char, index)
 
             index += 1
 
         distance = (index - self.index)
         self.longest = max(self.longest, distance)
 
-        return True, self.longest
+        return self.longest
 
     def lengthOfLongestSubstring(self, s):
         """
@@ -101,10 +96,8 @@ class Solution(object):
         self.string = s
         self.precompute_collision_map()
 
-#        print("foo: " + repr(self.table))
-
         while self.index < self.end:
-            found, length = self.find_substring()
+            length = self.find_substring()
 
             if (self.end - self.index) < self.longest:
                 break
@@ -114,11 +107,11 @@ class Solution(object):
         return self.longest
 
 
-def run_test():
-    run_one = "abcabcbb"
-
-    run_hard = "pwwkew"
-
+def run(test_case):
     test = Solution()
 
-    print("longest is: " + str(test.lengthOfLongestSubstring(run_one)))
+    result = test.lengthOfLongestSubstring(test_case)
+
+    print("longest is: " + str(result))
+
+    return result
