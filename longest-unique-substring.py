@@ -1,3 +1,5 @@
+# Longest Substring Without Repeating Characters
+
 def printer(func):
     def wrapper(*args, **kwargs):
         print("args: " + ",".join(map(repr, args)))
@@ -5,7 +7,7 @@ def printer(func):
 
         result = func(*args, **kwargs)
 
-        print("retval: " + repr(result))
+        print("return: " + repr(result))
 
         return result
 
