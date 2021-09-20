@@ -50,11 +50,6 @@ class Solution(object):
             self.occurrence_map[occur_position] = len(self.string)
 
 #    @printer
-    def update_nearest(self, index):
-        self.nearest = min(self.nearest, self.occurrence_map[index])
-        return self.nearest
-
-#    @printer
     def find_longest(self):
         self.nearest = len(self.string)
 
@@ -71,7 +66,8 @@ class Solution(object):
         # this will only find the first occurance but that's ok
         # because the window shift will move the starting position
         while index < self.nearest:
-            self.update_nearest(index)
+            self.nearest = min(self.nearest, self.occurrence_map[index])
+            return self.nearest
 
             index += 1
 
