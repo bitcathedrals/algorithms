@@ -16,57 +16,51 @@ def printer(func):
 
 class Solution(object):
 
-    def precompute_collision_map(self):
-        self.table = {}
+    def precompute_occurence_table(self):
+        self.occurrence_map = [None] * len(self.string)
+
+        table = {}
         index = 0
 
         for char in self.string:
-            if char in self.table:
-                self.table[char].append(index)
+            if char in table:
+                table[char].append(index)
             else:
-                self.table[char] = [index]
+                table[char] = [index]
 
             index += 1
 
-        for char in self.table:
-            self.table[char].sort()
+        for char in table:
+            occurrences = iter(table[char])
 
-        self.nearest = len(self.string)
-        self.end = self.nearest
+            occur_position = next(occurrences)
+
+            try:
+                while True:
+                    occur_next = next(occurrences)
+
+                    self.occurrence_map[occur_position] = occur_next
+
+                    occur_position = occur_next
+
+            except StopIteration:
+                pass
+
+            # terminate the sequence
+            self.occurrence_map[occur_position] = len(self.string)
 
 #    @printer
-    def update_nearest(self, char, index):
-        positions = iter(self.table[char])
-
-        next_index = None
-
-        try:
-            search = True
-            while search:
-                pos = next(positions)
-
-                if pos < index:
-                    continue
-
-                if pos == index:
-                    search = False
-
-            next_index = next(positions)
-
-        except StopIteration as ex:
-            return None
-
-        self.nearest = min(self.nearest, next_index)
-
+    def update_nearest(self, index):
+        self.nearest = min(self.nearest, self.occurrence_map[index])
         return self.nearest
 
 #    @printer
-    def find_substring(self):
-        self.nearest = self.end
+    def find_longest(self):
+        self.nearest = len(self.string)
 
         index = self.index
 
-        remaining = self.end - index
+        remaining = len(self.string) - index
 
         if remaining < self.longest:
             return self.longest
@@ -74,13 +68,14 @@ class Solution(object):
         if remaining < 1:
             return self.longest
 
+        # this will only find the first occurance but that's ok
+        # because the window shift will move the starting position
         while index < self.nearest:
-            char = self.string[index]
-            self.update_nearest(char, index)
+            self.update_nearest(index)
 
             index += 1
 
-        distance = (index - self.index)
+        distance = index - self.index
         self.longest = max(self.longest, distance)
 
         return self.longest
@@ -94,10 +89,12 @@ class Solution(object):
         self.longest = 0
 
         self.string = s
-        self.precompute_collision_map()
+        self.end = len(self.string)
+
+        self.precompute_occurence_table()
 
         while self.index < self.end:
-            length = self.find_substring()
+            self.find_longest()
 
             if (self.end - self.index) < self.longest:
                 break
