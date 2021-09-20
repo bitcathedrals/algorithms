@@ -64,6 +64,22 @@ class TestLongest:
 
         assert result == expected
 
+    def test_leet_95(self):
+        test = "cdd"
+        expected = 2
+
+        result = self.code.lengthOfLongestSubstring(test)
+
+        assert result == expected
+
+    def test_leet_407(self):
+        test = "dvdf"
+        expected = 3
+
+        result = self.code.lengthOfLongestSubstring(test)
+
+        assert result == expected
+
     def test_leet_unknown(self):
         test = "pwwkew"
         expected = 3
@@ -82,17 +98,23 @@ class BenchLongest:
 
     @elapsed(tag="With Map")
     def with_map(self):
-        result = self.code.lengthOfLongestSubstring(self.test)
+        result = self.code.forwardLookingPreCompute(self.test)
         print("With Map length is: " + str(result))
 
-    @elapsed(tag="With Memory")
+    @elapsed(tag="With Memoize")
     def with_memory(self):
+        result = self.code.backwardLookingMemoize(self.test)
+        print("With Memoize length is: " + str(result))
+
+    @elapsed(tag="With Skipping")
+    def with_skipping(self):
         result = self.code.lengthOfLongestSubstring(self.test)
-        print("With Memory length is: " + str(result))
+        print("With Skipping length is: " + str(result))
 
     def benchmark(self):
         self.with_map()
         self.with_memory()
+        self.with_skipping()
 
 if __name__ == '__main__':
     BenchLongest().benchmark()

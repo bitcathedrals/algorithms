@@ -149,20 +149,24 @@ class Solution(object):
 # drop the character from seen, and restart after the previous occurance. go through
 # the whole string this way in one pass.
 
-    def longest_with_forgetting(self, start):
+    def longest_with_forgetting(self, index):
         string = self.string
-        index = start
         end = self.end
-        seen = dict()
 
+        seen = dict()
         longest = 0
 
         while index < end:
             char = string[index]
 
+#            print(f"char is: {char} index is: {index} longest is: {longest} seen is: {repr(seen)}")
+
             if char in seen:
-                distance = index - seen[char]
-                longest = max(longest, distance)
+                if seen[char] == index:
+                    index += 1
+                    continue
+
+                longest = max(longest, len(seen))
 
                 last = seen[char]
 
