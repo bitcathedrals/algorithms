@@ -67,7 +67,6 @@ class Solution(object):
         # because the window shift will move the starting position
         while index < self.nearest:
             self.nearest = min(self.nearest, self.occurrence_map[index])
-            return self.nearest
 
             index += 1
 
