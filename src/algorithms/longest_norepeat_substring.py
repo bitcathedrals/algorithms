@@ -17,7 +17,7 @@ def printer(func):
 class Solution(object):
 
     def precompute_occurence_table(self):
-        self.occurrence_map = [None] * len(self.string)
+        occur_map = [None] * len(self.string)
 
         table = {}
         index = 0
@@ -39,7 +39,7 @@ class Solution(object):
                 while True:
                     occur_next = next(occurrences)
 
-                    self.occurrence_map[occur_position] = occur_next
+                    occur_map[occur_position] = occur_next
 
                     occur_position = occur_next
 
@@ -47,11 +47,14 @@ class Solution(object):
                 pass
 
             # terminate the sequence
-            self.occurrence_map[occur_position] = len(self.string)
+            occur_map[occur_position] = len(self.string)
+
+        self.occur_map = occur_map
 
 #    @printer
     def find_longest(self):
-        self.nearest = len(self.string)
+        occur_map = self.occur_map
+        nearest = len(self.string)
 
         index = self.index
 
@@ -63,10 +66,11 @@ class Solution(object):
         if remaining < 1:
             return self.longest
 
-        # this will only find the first occurance but that's ok
+        # this will only find the first occurrence but that's ok
         # because the window shift will move the starting position
-        while index < self.nearest:
-            self.nearest = min(self.nearest, self.occurrence_map[index])
+        while index < nearest:
+            next_occur = occur_map[index]
+            nearest = nearest if nearest < next_occur else next_occur
 
             index += 1
 

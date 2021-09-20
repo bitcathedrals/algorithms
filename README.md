@@ -17,6 +17,20 @@ length of performance is: 95
 
  michaelmattie@beast Algorithms % make no-repeat-benchmark
 source venv/bin/activate; export PYTHONPATH="$PYTHONPATH:/Users/michaelmattie/coding/Algorithms/src:/Users/michaelmattie/coding/Algorithms/tests:"; python /Users/michaelmattie/coding/Algorithms/tests/algorithms/test_longest_sub_str_no_repeats.py
-length of performance is: 0
- ran in: 0.03775596618652344
+length of performance is: 95
+ ran in: 0.853856086730957
+
+ making nearest variable local - V4 - make the nearest varable in find_substring local instead of object
+
+ michaelmattie@beast Algorithms % make no-repeat-benchmark
+ source venv/bin/activate; export PYTHONPATH="$PYTHONPATH:/Users/michaelmattie/coding/Algorithms/src:/Users/michaelmattie/coding/Algorithms/tests:"; python /Users/michaelmattie/coding/Algorithms/tests/algorithms/test_longest_sub_str_no_repeats.py
+ length of performance is: 95
+  ran in: 0.6220526695251465
+
+  make occur_map local in pre-compute - V5 - make occur_map a local variable
+
+  michaelmattie@beast Algorithms % make no-repeat-benchmark
+source venv/bin/activate; export PYTHONPATH="$PYTHONPATH:/Users/michaelmattie/coding/Algorithms/src:/Users/michaelmattie/coding/Algorithms/tests:"; python /Users/michaelmattie/coding/Algorithms/tests/algorithms/test_longest_sub_str_no_repeats.py
+length of performance is: 95
+ ran in: 0.29556870460510254
  
