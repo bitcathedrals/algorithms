@@ -1,6 +1,9 @@
 # Longest Substring Without Repeating Characters
 # written by Mike Mattie (c) 2021
 
+from collections import OrderedDict
+
+
 def printer(func):
     def wrapper(*args, **kwargs):
         print("args: " + ",".join(map(repr, args)))
@@ -153,7 +156,8 @@ class Solution(object):
         string = self.string
         end = self.end
 
-        seen = dict()
+        seen = OrderedDict()
+
         longest = 0
 
         while index < end:
@@ -170,9 +174,16 @@ class Solution(object):
 
                 last = seen[char]
 
-                for mem in list(seen):
-                    if seen[mem] <= last:
-                        del seen[mem]
+                remove = []
+
+                for i_char, i_idx in seen.items():
+                    if i_idx <= last:
+                        remove.append(i_char)
+                    else:
+                        break
+
+                for entry in remove:
+                    del seen[entry]
 
                 seen[char] = index
 
@@ -180,6 +191,7 @@ class Solution(object):
                 continue
 
             seen[char] = index
+
             index += 1
 
         longest = max(longest, len(seen))
