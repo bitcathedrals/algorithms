@@ -39,7 +39,16 @@ class TestLongest:
 
         assert result == expected
 
-    def test_one(self):
+    def test_case_one(self):
+
+        test = "a"
+        expected = 1
+
+        result = self.code.lengthOfLongestSubstring(test)
+
+        assert result == expected
+
+    def test_leet_1(self):
         test = "abcabcbb"
         expected = 3
 
@@ -47,7 +56,15 @@ class TestLongest:
 
         assert result == expected
 
-    def test_unknown(self):
+    def test_leet_69(self):
+        test = "aab"
+        expected = 2
+
+        result = self.code.lengthOfLongestSubstring(test)
+
+        assert result == expected
+
+    def test_leet_unknown(self):
         test = "pwwkew"
         expected = 3
 

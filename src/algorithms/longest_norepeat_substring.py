@@ -120,7 +120,7 @@ class Solution(object):
 
         return index - start
 
-    def lengthOfLongestSubstring(self, s):
+    def backwardLookingMemoize(self, s):
         """
         :type s: str
         :rtype: int
@@ -142,6 +142,57 @@ class Solution(object):
             index += 1
 
         return longest
+
+# forgetting version
+
+# we keep a seen, if we see it again, instead of stopping the whole substring match,
+# drop the character from seen, and restart after the previous occurance. go through
+# the whole string this way in one pass.
+
+    def longest_with_forgetting(self, start):
+        string = self.string
+        index = start
+        end = self.end
+        seen = dict()
+
+        longest = 0
+
+        while index < end:
+            char = string[index]
+
+            if char in seen:
+                distance = index - seen[char]
+                longest = max(longest, distance)
+
+                last = seen[char]
+
+                for mem in list(seen):
+                    if seen[mem] <= last:
+                        del seen[mem]
+
+                seen[char] = index
+
+                index = last + 1
+                continue
+
+            seen[char] = index
+            index += 1
+
+        longest = max(longest, len(seen))
+        return longest
+
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        index = 0
+
+        self.string = s
+        self.end = len(self.string)
+
+        return self.longest_with_forgetting(0)
+
 
 def run(test_case):
     test = Solution()
