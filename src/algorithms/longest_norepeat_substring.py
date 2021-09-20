@@ -79,7 +79,7 @@ class Solution(object):
 
         return self.longest
 
-    def lengthOfLongestSubstring(self, s):
+    def forwardLookingPreCompute(self, s):
         """
         :type s: str
         :rtype: int
@@ -102,6 +102,46 @@ class Solution(object):
 
         return self.longest
 
+# remembering or backward looking version
+
+    def longest_with_history(self, start):
+        string = self.string
+        index = start
+        end = self.end
+        seen = set()
+
+        while index < end:
+            char = string[index]
+            if char in seen:
+                return index - start
+
+            seen.add(char)
+            index += 1
+
+        return index - start
+
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+
+        index = 0
+        longest = 0
+
+        self.string = s
+        self.end = len(self.string)
+
+        seen = ()
+
+        while index < self.end:
+            length = self.longest_with_history(index)
+
+            longest = length if length > longest else longest
+
+            index += 1
+
+        return longest
 
 def run(test_case):
     test = Solution()

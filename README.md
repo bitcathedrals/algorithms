@@ -33,4 +33,10 @@ length of performance is: 95
 source venv/bin/activate; export PYTHONPATH="$PYTHONPATH:/Users/michaelmattie/coding/Algorithms/src:/Users/michaelmattie/coding/Algorithms/tests:"; python /Users/michaelmattie/coding/Algorithms/tests/algorithms/test_longest_sub_str_no_repeats.py
 length of performance is: 95
  ran in: 0.29556870460510254
- 
+
+look behind memory bag - V6 - use a new algorithm where we look to remembered characters to see if we have already seen them. not as fast.
+
+ michaelmattie@beast Algorithms % make no-repeat-benchmark
+ source venv/bin/activate; export PYTHONPATH="$PYTHONPATH:/Users/michaelmattie/coding/Algorithms/src:/Users/michaelmattie/coding/Algorithms/tests:"; python /Users/michaelmattie/coding/Algorithms/tests/algorithms/test_longest_sub_str_no_repeats.py
+ length of performance is: 95
+  ran in: 0.497485876083374
