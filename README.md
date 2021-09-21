@@ -40,3 +40,32 @@ look behind memory bag - V6 - use a new algorithm where we look to remembered ch
  source venv/bin/activate; export PYTHONPATH="$PYTHONPATH:/Users/michaelmattie/coding/Algorithms/src:/Users/michaelmattie/coding/Algorithms/tests:"; python /Users/michaelmattie/coding/Algorithms/tests/algorithms/test_longest_sub_str_no_repeats.py
  length of performance is: 95
   ran in: 0.497485876083374
+
+  michaelmattie@beast Algorithms % make no-repeat-benchmark
+  source venv/bin/activate; export PYTHONPATH="$PYTHONPATH:/Users/michaelmattie/coding/Algorithms/src:/Users/michaelmattie/coding/Algorithms/tests:"; python /Users/michaelmattie/coding/Algorithms/tests/algorithms/test_longest_sub_str_no_repeats.py
+  With Map length is: 95
+  With Map ran in: 0.44652485847473145
+  With Memory length is: 95
+  With Memory ran in: 0.45049095153808594
+
+  skipping algorithm: - V7
+
+  michaelmattie@beast Algorithms % make no-repeat-benchmark
+source venv/bin/activate; export PYTHONPATH="$PYTHONPATH:/Users/michaelmattie/coding/Algorithms/src:/Users/michaelmattie/coding/Algorithms/tests:"; python /Users/michaelmattie/coding/Algorithms/tests/algorithms/test_longest_sub_str_no_repeats.py
+With Map length is: 95
+With Map ran in: 0.2790658473968506
+With Memoize length is: 95
+With Memoize ran in: 0.42917799949645996
+With Skipping length is: 95
+With Skipping ran in: 0.47572994232177734
+
+Ordered Dict optimization to skipper - V8
+
+michaelmattie@beast Algorithms % make no-repeat-benchmark
+source venv/bin/activate; export PYTHONPATH="$PYTHONPATH:/Users/michaelmattie/coding/Algorithms/src:/Users/michaelmattie/coding/Algorithms/tests:"; python /Users/michaelmattie/coding/Algorithms/tests/algorithms/test_longest_sub_str_no_repeats.py
+With Map length is: 95
+With Map ran in: 0.27973079681396484
+With Memoize length is: 95
+With Memoize ran in: 0.43615102767944336
+With Skipping length is: 95
+With Skipping ran in: 0.3790132999420166
