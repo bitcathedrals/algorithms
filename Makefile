@@ -12,9 +12,9 @@ update-toolbox:
 	source venv/bin/activate; python -m pip install $(TOOLS) --upgrade
 
 no-repeat:
-	source venv/bin/activate; export PYTHONPATH="$$PYTHONPATH:$(SOURCES)"; python -m pytest $(TESTS)/test_longest_sub_str_no_repeats.py
+	@source venv/bin/activate; export PYTHONPATH="$$PYTHONPATH:$(SOURCES)"; python -m pytest $(TESTS)/test_longest_sub_str_no_repeats.py
 
 no-repeat-benchmark:
-	source venv/bin/activate; export PYTHONPATH="$$PYTHONPATH:$(SOURCES)"; python $(NO_REPEAT)
+	@source venv/bin/activate; export PYTHONPATH="$$PYTHONPATH:$(SOURCES)"; python $(NO_REPEAT)
 
 all: no-repeat
