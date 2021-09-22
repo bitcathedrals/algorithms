@@ -97,9 +97,9 @@ iterating through the entire table every time like a filter function.
 Small optimization to inline the max call in a tight part of the Loop
 and some smarter use of variables to cache repeated lookups.
 
-> With Map length is: 95
-> With Map ran in: 0.2730729579925537
-> With Memoize length is: 95
-> With Memoize ran in: 0.42336082458496094
-> With Skipping length is: 95
-> With Skipping ran in: 0.3557901382446289
+> With Map length is: 95  
+> With Map ran in: 0.2730729579925537  
+> With Memoize length is: 95  
+> With Memoize ran in: 0.42336082458496094  
+> With Skipping length is: 95  
+> With Skipping ran in: 0.3557901382446289  
