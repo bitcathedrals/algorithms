@@ -166,13 +166,14 @@ class Solution(object):
 #            print(f"char is: {char} index is: {index} longest is: {longest} seen is: {repr(seen)}")
 
             if char in seen:
-                if seen[char] == index:
+                last = seen[char]
+
+                if last == index:
                     index += 1
                     continue
 
-                longest = max(longest, len(seen))
-
-                last = seen[char]
+                table_size = len(seen)
+                longest = longest if table_size < longest else table_size
 
                 remove = []
 

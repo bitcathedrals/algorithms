@@ -91,3 +91,15 @@ iterating through the entire table every time like a filter function.
 > With Memoize ran in: 0.43615102767944336  
 > With Skipping length is: 95  
 > With Skipping ran in: 0.3790132999420166  
+
+## Function inlining and caching - V9
+
+Small optimization to inline the max call in a tight part of the Loop
+and some smarter use of variables to cache repeated lookups.
+
+> With Map length is: 95
+> With Map ran in: 0.2730729579925537
+> With Memoize length is: 95
+> With Memoize ran in: 0.42336082458496094
+> With Skipping length is: 95
+> With Skipping ran in: 0.3557901382446289
