@@ -1,9 +1,15 @@
 # Algorithms for detecting the longest non-repeating substring
 
+I wrote three algorithms: The first used a lookup table constructed with the
+positions of repeated characters. The second used backward looking memoization.
+The third I called skipper made a single pass and was able to both memoize
+and forget.
+
 ## First run with implementation V1 - the character occurance lookup table
 
 A lookup table for the occurances in the string. Implemented as a dict keyed
-by character.
+by character. A list of all the positions for that char are in the table. Data
+structure design and traversal was klunky and slow.
 
 >length of performance is: 95  
 > ran in: 22.648531913757324  
@@ -13,29 +19,42 @@ by character.
 a 1:1 map containing the position of the next re-currence of the character. compiled from the
 occurance lookup table this is two passes of pre-compute.
 
-This is the fastest without micro-optimization
+This allows the algorithm to simply scan the string, and keep shrinking the
+non-repeating range by taking the min of the nearest and the next occurance.
+
+This was insanely fast compared to the first lookup table.
 
 > length of performance is: 95  
 > ran in: 1.242314100265503  
 
 ## Loop inlining - V3 - remove a function call by inlining it in the main Loop
 
+Function calls are expensive, it was easy to inline so I removed the call
+and it ran much faster.
+
 > length of performance is: 95  
 > ran in: 0.853856086730957  
 
-## making nearest variable local - V4 - make the nearest varable in find_substring local instead of object
+## localize nearest - V4 - make the nearest varable in find_substring local instead of object
+
+localizing variables can greatly speed up a Python program.
 
 > length of performance is: 95  
 >  ran in: 0.6220526695251465  
 
-##  make occur_map local in pre-compute - V5 - make occur_map a local variable
+## localize occur_map in pre-compute - V5 - make occur_map a local variable
+
+
+After localizing optimization in the pre-compute function I arrived at my
+best time for the pre-compute algorithm.
 
 > length of performance is: 95  
 > ran in: 0.29556870460510254  
 
 ## look behind Memoize - V6
 
-use a new algorithm where we look to remembered characters to see if we have already seen them. not as fast.
+Ise a new algorithm where we look to remembered characters to see if we have already seen them. not as fast. These timings are not consistent with other results, so look at "Memoize" results in future
+runs. But Map = 279ms, Memoize = 429ms on average.
 
 > With Map length is: 95  
 >  With Map ran in: 0.44652485847473145  
@@ -44,7 +63,12 @@ use a new algorithm where we look to remembered characters to see if we have alr
 
 ##  skipping algorithm: - V7
 
-new algorithm.
+New one pass skiping algorithm. I was shocked that it was significantly slower
+than the pre-compute. I attribute this to the use of cheap operations in the inner
+core of pre-compute for it's speed. I think what is slowing down skip is
+the expense of the dictionary manipulation.
+
+It's starting speed isn't bad for no optimization.
 
 > With Map length is: 95  
 > With Map ran in: 0.2790658473968506  
@@ -54,6 +78,12 @@ new algorithm.
 > With Skipping ran in: 0.47572994232177734  
 
 ## Ordered Dict optimization to skipper - V8
+
+Major optimization, switch to an OrderedDict lookup, which allows us to
+index by char,position - but also traverse the elements by insertion age
+so all the positions are basically sorted. Now we just walk up the elements
+until we reach a stopping point for removing old entries and just break instead of
+iterating through the entire table every time like a filter function.
 
 > With Map length is: 95  
 > With Map ran in: 0.27973079681396484  
