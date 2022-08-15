@@ -1,0 +1,107 @@
+#! /usr/bin/zsh
+#----------------------------------------------------------------------
+# sedify-C++, version 0.0.2
+#
+# generate sed regexes to recognize C++ language elements
+#
+# consider translating to perl 6 for use of grammar constructs :)
+#----------------------------------------------------------------------
+
+# 
+# sed regex meta characters
+#
+
+zero_plus="\\?"
+kleene="*"
+positive="\\+"
+or="\\|"
+lp="\\("
+rp="\\)"
+
+#
+# the fundamental lexemes
+#
+
+blank="[[:blank:]]${or}${lp}\\/\\*.*\\*\\/${rp}"
+
+# whitespace, not reqired
+# positive whitespace, is required
+
+ws="${lp}${blank}${kleene}${rp}"
+p_ws="${lp}${blank}${positive}${rp}"
+
+# identifier, very crude currently needs to be done by the standard
+
+identifier="${lp}[[:alnum:]_]${positive}${rp}"
+literal="${lp}${lp}[-+]${zero_plus}[[:digit:]]${positive}${rp}${or}${lp}[[:alpha:]_]${positive}${rp}${rp}"
+
+# scope delimiter, parthenses are so both characters composing the
+# token can be treated as a regex atom
+
+scope_delim="${lp}::${rp}"
+
+#
+# compound lexeme (productions) identifier declarations
+#
+
+# scoped indetifier matches C++ fully qualified identifiers
+
+scoped_ident="${lp}${scope_delim}${zero_plus}${identifier}${rp}${positive}"
+
+# type_attr consumes zero or more type attributes type matches a
+# attributed qalified type, with modifiers such as pointer and
+# referance
+
+type_attr="${lp}${identifier}${p_ws}${rp}${kleene}"
+type="${lp}${type_attr}${scoped_ident}${ws}${lp}[\\*\\&]${kleene}${rp}${rp}"
+
+# parm matches a single parameter, parm sequence matches a set of
+# comma seperated parameters, parm_list a parentheses bounded
+# parameter list
+
+#
+# high levels
+#
+
+#parm="${type}${lp}${p_ws}${identifier}${lp}${ws}=${ws}${literal}${rp}${zero_plus}${rp}${zero_plus}"
+# I fucking hate this shit
+
+parm="${type}${lp}${ws}${identifier}${lp}${ws}=${ws}${literal}${rp}${zero_plus}${rp}${zero_plus}"
+
+parm_seq="${lp}${ws}${parm}${ws},${rp}${kleene}${ws}${parm}${positive}${ws}"
+parm_list="(${ws}${parm_seq}${ws})"
+
+func_decl="${ws}${type}${zero_plus}${scoped_ident}${ws}${parm_list}"
+
+#
+# a simple interface, note the no parm is not handled well
+#
+
+while test $# -gt 0
+do
+  case $1 in
+    "ws") echo "$ws" ;;
+    "type") echo "$type" ;;
+    "parm") echo "$parm" ;;
+    "literal") echo "$literal" ;;
+    "parm_seq") echo "$parm_seq" ;;
+    "parm_list") echo "$parm_list" ;;
+    "func_decl") echo "$func_decl" ;;
+    *) 
+      echo "Sedify-C++: unkown C++ lexeme regex \"$1\" requested" >/dev/stderr 
+      echo "===========================================================" >/dev/stderr 
+      echo "ws        == whitespace"  >/dev/stderr
+      echo "type      == type specifier" >/dev/stderr
+      echo "parm      == function defintion parameter" >/dev/stderr
+      echo "literal   == literal value" >/dev/stderr
+      echo "parm_seq  == multiple parameters, comma deliniated" >/dev/stderr
+      echo "parm_list == parentheses enclosed parameter sequence" >/dev/stderr
+      echo "func_decl == function declaration or definition" >/dev/stderr
+    ;; 
+  esac 
+
+  shift 1
+done
+
+
+
