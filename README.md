@@ -10,7 +10,7 @@ and discovery of problem solving techniques.
 
 ## Heap Sort in python
 
-[Python][src/heap_sort/README.md)
+[Python][src/heap_sort/)
 
 ## maze
 
