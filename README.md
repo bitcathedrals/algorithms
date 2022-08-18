@@ -6,7 +6,7 @@ and discovery of problem solving techniques.
 
 ## Longest non-repeating substring
 
-[Python](src/longest_norepeat_substring/README.md)
+[Python](src/longest_norepeat_substring/)
 
 ## Heap Sort in python
 
@@ -14,11 +14,11 @@ and discovery of problem solving techniques.
 
 ## maze
 
-[Python](src/maze/README.md)
+[Python](src/maze/)
 
 ## merge sort
 
-[Common Lisp](src/merge_sort/README.md)
+[Common Lisp](src/merge_sort/)
 
 
 
