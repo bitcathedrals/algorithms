@@ -60,7 +60,7 @@ I decided to write a parser in Emacs Lisp maximizing the use of macros to create
 
 I was able to get the PEG semantics implemented fully and was working on CFG integration when I had to put it aside. However it is a tour de force of LISP meta-programming techniques including constructs that extended Lisp itself to produce highly optimized code.
 
-[Elisp](src/elisp/)
+[Elisp](src/parser/)
 
  
 
