@@ -62,6 +62,18 @@ I was able to get the PEG semantics implemented fully and was working on CFG int
 
 [Elisp](src/parser/)
 
+## buffer-ring
+
+buffer-ring is a project I wrote for Emacs based upon trying to use mtorus for buffer navigation. I decided to simplify the Torus structure with a ring of rings so navigation the ring up/down would navigate the outer ring by mode/file type.
+
+Navigating left/right would cycle through the buffers in the mode. Its a very neat feature managing buffers with multiple file types.
+
+To implement this I constructed a ring data structure out of cons cells that could be rotated in both directions.
+
+The package was picked up by other developers and I donated it to the public domain. Here is the original code before it was enhanced by other developers and distributed on MELPA.
+
+[Elisp](src/ring/) 
+
  
 
 
