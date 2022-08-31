@@ -6,9 +6,10 @@ I determined that the basic list data structure was not well suited to the mergi
 
 I implemented a double ended queue data structure and saw a massive increase in performance.
 
-DEFAULT LIBRARY FUNCTIONS
 
 ```bash
+DEFAULT LIBRARY FUNCTIONS
+
 merge-sort.lisp -> running now
 Evaluation took:
   0.402 seconds of real time
